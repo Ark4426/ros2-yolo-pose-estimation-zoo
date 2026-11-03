@@ -1,0 +1,15 @@
+pose_detector:
+  ros__parameters:
+    # Model settings
+    human_model_path: "yolov8m-pose.pt"  # Will automatically download
+    elephant_model_path: "custom_elephant.pt" # User must place this file in valid path or root
+    
+    # Camera settings
+    camera_topic: "/camera/image_raw"
+    
+    # Detection settings
+    conf_threshold: 0.25
+    device: "cpu"  # Use "cuda" if GPU is available
+    
+    # Visualization
+    show_debug_window: False # Set to True for local testing

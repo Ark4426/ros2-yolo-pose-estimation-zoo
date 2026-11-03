@@ -1,0 +1,92 @@
+<?xml version="1.0" ?>
+<sdf version="1.6">
+  <world name="enclosed_zoo">
+    <physics type="ode">
+      <real_time_update_rate>1000.0</real_time_update_rate>
+      <max_step_size>0.01</max_step_size>
+      <real_time_factor>1</real_time_factor>
+      <ode>
+        <solver>
+          <type>quick</type>
+          <iters>50</iters>
+        </solver>
+      </ode>
+    </physics>
+
+    <!-- Sun and Ground -->
+    <include><uri>model://sun</uri></include>
+    <include><uri>model://ground_plane</uri></include>
+
+    <!-- Elephant Model -->
+    <include>
+      <uri>model://elephant</uri>
+      <pose>2.0 2.0 0.0 0 0 -2.5</pose>
+    </include>
+
+    <!-- Human Actor (Stationary) -->
+    <!-- Using the actor which successfully loaded before, but setting waypoints to keep it in one place -->
+    <actor name="actor_stationary">
+      <skin>
+        <filename>walk.dae</filename>
+      </skin>
+      <animation name="walking">
+        <filename>walk.dae</filename>
+        <interpolate_x>true</interpolate_x>
+      </animation>
+      <script>
+        <loop>true</loop>
+        <delay_start>0.000000</delay_start>
+        <auto_start>true</auto_start>
+        <trajectory id="0" type="walking">
+           <waypoint>
+            <time>0</time>
+            <pose>3 -2 0.3 0 0 2.0</pose>
+          </waypoint>
+          <waypoint>
+            <time>100</time>
+            <pose>3 -2 0.3 0 0 2.0</pose>
+          </waypoint>
+        </trajectory>
+      </script>
+    </actor>
+
+    <!-- Enclosure Walls (10x10m) -->
+    <!-- North Wall -->
+    <model name="wall_north">
+      <pose>0 5 1 0 0 0</pose>
+      <static>true</static>
+      <link name="link">
+        <collision name="collision"><geometry><box><size>10 0.2 2</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>10 0.2 2</size></box></geometry><material><script><uri>file://media/materials/scripts/gazebo.material</uri><name>Gazebo/Grey</name></script></material></visual>
+      </link>
+    </model>
+    <!-- South Wall -->
+    <model name="wall_south">
+      <pose>0 -5 1 0 0 0</pose>
+      <static>true</static>
+      <link name="link">
+        <collision name="collision"><geometry><box><size>10 0.2 2</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>10 0.2 2</size></box></geometry><material><script><uri>file://media/materials/scripts/gazebo.material</uri><name>Gazebo/Grey</name></script></material></visual>
+      </link>
+    </model>
+    <!-- East Wall -->
+    <model name="wall_east">
+      <pose>5 0 1 0 0 0</pose>
+      <static>true</static>
+      <link name="link">
+        <collision name="collision"><geometry><box><size>0.2 10 2</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>0.2 10 2</size></box></geometry><material><script><uri>file://media/materials/scripts/gazebo.material</uri><name>Gazebo/Grey</name></script></material></visual>
+      </link>
+    </model>
+    <!-- West Wall -->
+    <model name="wall_west">
+      <pose>-5 0 1 0 0 0</pose>
+      <static>true</static>
+      <link name="link">
+        <collision name="collision"><geometry><box><size>0.2 10 2</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>0.2 10 2</size></box></geometry><material><script><uri>file://media/materials/scripts/gazebo.material</uri><name>Gazebo/Grey</name></script></material></visual>
+      </link>
+    </model>
+
+  </world>
+</sdf>
